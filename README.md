@@ -27,7 +27,7 @@
 
 ## Database configuration
 
-You need to have a postgres database to run this api. If you don't have a server, just use docker.
+You need to have a postgres database to run this api. If you don't have a server, you can use Docker.
 
 ```bash
  docker run --name postgres-db -e POSTGRES_PASSWORD=anakin1234 -e POSTGRES_DB=characters -e POSTGRES_USER=anakin -p 5432:5432 postgres
@@ -37,10 +37,28 @@ You need to have a postgres database to run this api. If you don't have a server
 
 Then you have to set env variables (If you are using MacOS run source local.zsh):
 
-*DB_HOST
-*DB_USER
-*DB_PASSWORD
-*DB_NAME
+* DB_HOST
+* DB_USER
+* DB_PASSWORD
+* DB_NAME
+
+# Don't you want to clone the repo?
+
+Get the Package
+
+```bash
+go get -v github.com/juanpipeline/star-wars-characters-api
+```
+
+Then run the exec
+
+```bash
+$HOME/go/bin/star-wars-characters-api
+```
+
+$HOME is the path where golang is installed
+
+# Do you want to clone the repo?
 
 ## Run app installing
 
@@ -74,7 +92,7 @@ docker run -it -p 8080:8080 --env-file="local.env" goapp
 
 ## Interactive documentation with swagger
 
-Go to: [http://localhost:8080/swagger/index.html#/default/get_characters]
+**Go to the url:** http://localhost:8080/swagger/index.html#/default/get_characters
 
 ## Examples
 
