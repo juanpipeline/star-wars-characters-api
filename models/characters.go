@@ -24,18 +24,15 @@ type CharacterBase struct {
 	Species   string  `json:"species"`
 }
 
-// character represents data about a record character.
 type Character struct {
 	CharacterBase
 	gorm.Model
 }
 
-// character create data about a record character.
 type CharacterCreate struct {
 	CharacterBase
 }
 
-// character response data about a record character.
 type CharacterResponse struct {
 	CharacterBase
 	ID        uint      `json:"ID"`
