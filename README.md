@@ -86,10 +86,6 @@ docker run -it -p 8080:8080 --env-file="local.env" goapp
 ./star-wars-characters-api
 ```
 
-```bash
-docker run -it -p 8080:8080 --env-file="local.env" goapp
-```
-
 ## Interactive documentation with swagger
 
 **Go to the url:** http://localhost:8080/swagger/index.html#/default/get_characters
