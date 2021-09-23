@@ -1,0 +1,185 @@
+definitions:
+  models.APIError:
+    properties:
+      errorCode:
+        type: integer
+      errorMessage:
+        type: string
+    type: object
+  models.CharacterCreate:
+    properties:
+      hair_color:
+        type: string
+      height:
+        type: number
+      mass:
+        type: number
+      masters:
+        type: string
+      name:
+        type: string
+      skin_color:
+        type: string
+      species:
+        type: string
+    type: object
+  models.CharacterResponse:
+    properties:
+      CreatedAt:
+        type: string
+      DeletedAt:
+        type: string
+      ID:
+        type: integer
+      UpdatedAt:
+        type: string
+      hair_color:
+        type: string
+      height:
+        type: number
+      mass:
+        type: number
+      masters:
+        type: string
+      name:
+        type: string
+      skin_color:
+        type: string
+      species:
+        type: string
+    type: object
+info:
+  contact:
+    name: juanpipeline
+    url: https://github.com/juanpipeline
+  description: A simple APIRest to Star Wars character using Golang (gin,gorm).
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Star wars characters API
+  version: "1.0"
+paths:
+  /star-wars/characters:
+    get:
+      consumes:
+      - application/json
+      description: Search all characteres in the DataBase
+      parameters:
+      - description: Character name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CharacterResponse'
+            type: array
+        "404":
+          description: Can not find objects
+          schema:
+            $ref: '#/definitions/models.APIError'
+      summary: Search Characters
+    post:
+      consumes:
+      - application/json
+      description: create an Character
+      parameters:
+      - description: Create account
+        in: body
+        name: character
+        required: true
+        schema:
+          $ref: '#/definitions/models.CharacterCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CharacterResponse'
+        "404":
+          description: Can not find objects
+          schema:
+            $ref: '#/definitions/models.APIError'
+      summary: Create Characters
+  /star-wars/characters/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an character by id
+      parameters:
+      - description: Character ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/models.CharacterResponse'
+        "404":
+          description: Can not find objects
+          schema:
+            $ref: '#/definitions/models.APIError'
+      summary: Delete Character by id
+    get:
+      consumes:
+      - application/json
+      description: Get an character by id
+      parameters:
+      - description: Character ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CharacterResponse'
+            type: array
+        "404":
+          description: Can not find objects
+          schema:
+            $ref: '#/definitions/models.APIError'
+      summary: Get Character by id
+    patch:
+      consumes:
+      - application/json
+      description: Update an character by id
+      parameters:
+      - description: Character ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update account
+        in: body
+        name: character
+        required: true
+        schema:
+          $ref: '#/definitions/models.CharacterCreate'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/models.CharacterResponse'
+        "404":
+          description: Can not find objects
+          schema:
+            $ref: '#/definitions/models.APIError'
+      summary: Update Character by id
+swagger: "2.0"

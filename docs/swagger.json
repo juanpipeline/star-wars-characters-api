@@ -1,0 +1,281 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A simple APIRest to Star Wars character using Golang (gin,gorm).",
+        "title": "Star wars characters API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "juanpipeline",
+            "url": "https://github.com/juanpipeline"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/star-wars/characters": {
+            "get": {
+                "description": "Search all characteres in the DataBase",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Search Characters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Character name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CharacterResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find objects",
+                        "schema": {
+                            "$ref": "#/definitions/models.APIError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create an Character",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create Characters",
+                "parameters": [
+                    {
+                        "description": "Create account",
+                        "name": "character",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CharacterCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CharacterResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find objects",
+                        "schema": {
+                            "$ref": "#/definitions/models.APIError"
+                        }
+                    }
+                }
+            }
+        },
+        "/star-wars/characters/{id}": {
+            "get": {
+                "description": "Get an character by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get Character by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Character ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CharacterResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find objects",
+                        "schema": {
+                            "$ref": "#/definitions/models.APIError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an character by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete Character by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Character ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "$ref": "#/definitions/models.CharacterResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find objects",
+                        "schema": {
+                            "$ref": "#/definitions/models.APIError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update an character by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update Character by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Character ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update account",
+                        "name": "character",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CharacterCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "$ref": "#/definitions/models.CharacterResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find objects",
+                        "schema": {
+                            "$ref": "#/definitions/models.APIError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.APIError": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "integer"
+                },
+                "errorMessage": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CharacterCreate": {
+            "type": "object",
+            "properties": {
+                "hair_color": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "number"
+                },
+                "mass": {
+                    "type": "number"
+                },
+                "masters": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "skin_color": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CharacterResponse": {
+            "type": "object",
+            "properties": {
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "DeletedAt": {
+                    "type": "string"
+                },
+                "ID": {
+                    "type": "integer"
+                },
+                "UpdatedAt": {
+                    "type": "string"
+                },
+                "hair_color": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "number"
+                },
+                "mass": {
+                    "type": "number"
+                },
+                "masters": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "skin_color": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
