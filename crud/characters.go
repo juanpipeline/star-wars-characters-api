@@ -43,11 +43,15 @@ func SearchCharacters(name string) []models.Character {
 
 	log.Println("Starting with character Searching")
 
+	log.Println("The names is: ", name)
+
 	if name != "" {
 		log.Println("Filetering by name ", name)
 		conditions["name"] = name
 	}
 	// Here you can write other conditions
+
+	log.Println("Conditions: ", conditions)
 
 	result := conn.Where(conditions).Find(&characters)
 
@@ -75,7 +79,6 @@ func GetCharacter(id int64) (models.Character, error) {
 	result := conn.First(&character, id)
 
 	if result.Error != nil {
-		//log.Fatal(result.Error)
 		log.Println("DB error ", result.Error)
 		return character, result.Error
 	}
@@ -100,7 +103,6 @@ func DeleteCharacter(id int64) (models.Character, error) {
 	result := conn.Delete(&character, id)
 
 	if result.Error != nil {
-		//log.Fatal(result.Error)
 		log.Println("DB error ", result.Error)
 		return character, result.Error
 	}
@@ -157,7 +159,6 @@ func UpdateCharacter(id int64, characterUpdate map[string]interface{}) (models.C
 	//.Updates(characterUpdate)
 
 	if result.Error != nil {
-		//log.Fatal(result.Error)
 		log.Println("DB error ", result.Error)
 		return character, result.Error
 	}

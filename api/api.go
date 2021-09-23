@@ -21,9 +21,9 @@ import (
 // @Failure 404 {object} models.APIError "Can not find objects"
 // @Router /star-wars/characters [get]
 func SearchCharacters(c *gin.Context) {
-	name := c.Param("name")
+	query := c.Request.URL.Query()
+	name := query["name"][0]
 	c.IndentedJSON(http.StatusOK, crud.SearchCharacters(name))
-	//c.IndentedJSON(http.StatusOK, )
 }
 
 // CreateCharacter godoc
@@ -65,14 +65,12 @@ func GetCharacter(c *gin.Context) {
 	id, err := strconv.ParseInt(_id, 0, 8)
 
 	if err != nil {
-		//log.Fatal(err)
 		c.IndentedJSON(http.StatusBadRequest, models.APIError{ErrorCode: 401, ErrorMessage: "Bad request"})
 	}
 
 	character, apierr := crud.GetCharacter(id)
 
 	if apierr != nil {
-		//log.Fatal(err)
 		c.IndentedJSON(http.StatusNotFound, models.APIError{ErrorCode: 404, ErrorMessage: "Not found"})
 		return
 	}
@@ -109,7 +107,6 @@ func DeleteCharacter(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusNoContent, character)
-	//c.IndentedJSON(http.StatusOK, )
 }
 
 // UpdateCharacter godoc
@@ -129,13 +126,11 @@ func UpdateCharacter(c *gin.Context) {
 	id, err := strconv.ParseInt(_id, 0, 8)
 
 	if err != nil {
-		//log.Fatal(err)
 		c.IndentedJSON(http.StatusBadRequest, models.APIError{ErrorCode: 401, ErrorMessage: "Bad request"})
 	}
 
 	// TODO: Json validation
 	if err_bind := c.BindJSON(&characterupdate); err_bind != nil {
-		//log.Fatal(err_bind)
 		c.IndentedJSON(http.StatusBadRequest, models.APIError{ErrorCode: 401, ErrorMessage: err_bind.Error()})
 		return
 	}
@@ -145,11 +140,9 @@ func UpdateCharacter(c *gin.Context) {
 	character, apierr := crud.UpdateCharacter(id, structs.Map(characterupdate))
 
 	if apierr != nil {
-		//log.Fatal(err)
 		c.IndentedJSON(http.StatusNotFound, models.APIError{ErrorCode: 404, ErrorMessage: "Not found"})
 		return
 	}
 
 	c.IndentedJSON(http.StatusOK, character)
-	//c.IndentedJSON(http.StatusOK, )
 }
